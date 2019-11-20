@@ -34,8 +34,8 @@ public class ApiUserController {
         apiUserService.register(firstname, lastname, username, password);
     }
 
-    @PutMapping("/user")
-    public void updateUser(@RequestBody int roleId, String firstname, String lastname, String username, String password) {
+    @PutMapping("/user/{id}")
+    public void updateUser(@PathVariable int roleId, @RequestBody String firstname, String lastname, String username, String password) {
         apiUserService.updateUser(roleId, firstname, lastname, username, password);
     }
 
