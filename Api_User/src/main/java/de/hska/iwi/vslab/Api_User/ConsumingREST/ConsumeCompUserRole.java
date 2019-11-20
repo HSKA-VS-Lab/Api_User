@@ -15,7 +15,7 @@ public class ConsumeCompUserRole {
         try {
             UrlBuilder urlBuilder = new UrlBuilder();
             log.info("URL:" + urlBuilder.getBaseUrl_comp_user_role());
-            restTemplate.postForLocation(urlBuilder.getBaseUrl_comp_user_role(), firstname, lastname, username, password);
+            restTemplate.postForLocation(urlBuilder.getRegisterUrl(), firstname, lastname, username, password);
         } catch (Exception e) {
             System.out.println(e);
             throw e;

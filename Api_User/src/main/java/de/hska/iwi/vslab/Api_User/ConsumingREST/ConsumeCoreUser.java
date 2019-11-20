@@ -16,7 +16,7 @@ public class ConsumeCoreUser {
         try {
             UrlBuilder urlBuilder = new UrlBuilder();
             log.info("URL:" + urlBuilder.getBaseUrl_core_user());
-            return restTemplate.getForObject(urlBuilder.getBaseUrl_core_user(), User[].class);
+            return restTemplate.getForObject(urlBuilder.getUserUrl(), User[].class);
         } catch (Exception e) {
             System.out.println(e);
             throw e;
@@ -26,8 +26,8 @@ public class ConsumeCoreUser {
     public User getUser(String input) {
         try {
             UrlBuilder urlBuilder = new UrlBuilder();
-            log.info("URL:" + urlBuilder.getSlashURL_core());
-            return restTemplate.getForObject(urlBuilder.getSlashURL_core() + input, User.class);
+            log.info("URL:" + urlBuilder.getInputUrl(input));
+            return restTemplate.getForObject(urlBuilder.getInputUrl(input), User.class);
         } catch (Exception e) {
             System.out.println(e);
             throw e;
@@ -39,7 +39,7 @@ public class ConsumeCoreUser {
             UrlBuilder urlBuilder = new UrlBuilder();
             log.info("URL:" + urlBuilder.getBaseUrl_core_user());
             User user = new User(firstname, lastname, username, password, roleId);
-            restTemplate.postForLocation(urlBuilder.getBaseUrl_core_user(), user);
+            restTemplate.postForLocation(urlBuilder.getSlashURL_core(), user);
         } catch (Exception e) {
             System.out.println(e);
             throw e;
@@ -50,7 +50,7 @@ public class ConsumeCoreUser {
         try {
             UrlBuilder urlBuilder = new UrlBuilder();
             log.info("URL:" + urlBuilder.getBaseUrl_core_user());
-            restTemplate.put(urlBuilder.getBaseUrl_core_user(), user);
+            restTemplate.put(urlBuilder.getSlashURL_core(), user);
         } catch (Exception e) {
             System.out.println(e);
             throw e;
@@ -61,7 +61,7 @@ public class ConsumeCoreUser {
         try {
             UrlBuilder urlBuilder = new UrlBuilder();
             log.info("URL:" + urlBuilder.getBaseUrl_core_user());
-            restTemplate.delete(urlBuilder.getBaseUrl_core_user());
+            restTemplate.delete(urlBuilder.getSlashURL_core());
         } catch (Exception e) {
             System.out.println(e);
             throw e;
