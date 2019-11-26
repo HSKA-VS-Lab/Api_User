@@ -22,21 +22,21 @@ public class ApiUserService {
         return coreUser.getAllUsers();
     }
 
-    public User getUser(String user){
+    public User getUser(String user) {
         return coreUser.getUser(user);
     }
 
-    public void register(String firstname, String lastname, String username, String password){
+    public void register(String firstname, String lastname, String username, String password) {
         ConsumeCompUserRole compUserRole = new ConsumeCompUserRole();
         compUserRole.register(firstname, lastname, username, password);
     }
 
-    public void updateUser(int roleId, String username, String firstname, String lastname, String password){
+    public void updateUser(String username, String firstname, String lastname, String password, int roleId) {
         User user = new User(username, firstname, lastname, password, roleId);
         coreUser.updateUser(user);
     }
 
-    public void deleteUser(int id){
+    public void deleteUser(int id) {
         coreUser.deleteUser(id);
     }
 
@@ -44,5 +44,5 @@ public class ApiUserService {
         User user = coreUser.getUser(Integer.toString(userId));
         return user.getRoleId();
     }
-    
+
 }

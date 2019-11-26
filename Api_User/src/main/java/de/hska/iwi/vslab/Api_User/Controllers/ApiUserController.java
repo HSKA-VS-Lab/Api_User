@@ -28,19 +28,21 @@ public class ApiUserController {
         return apiUserService.getUser(input);
     }
 
-    @PostMapping("/user")
-    public void addUser(@RequestBody String firstname, String lastname, String username, String password) {
+    @PostMapping(path = "/user", consumes = "application/json")
+    public void addUser(@RequestBody(required = true) User payload) {
         log.info("register(firstname, lastname, username, password) was called");
-        apiUserService.register(firstname, lastname, username, password);
+        apiUserService.register(payload.getFirstname(), payload.getLastname(), payload.getUsername(),
+                payload.getPassword());
     }
 
-    @PutMapping("/user/{id}")
-    public void updateUser(@PathVariable int roleId, @RequestBody String firstname, String lastname, String username, String password) {
-        apiUserService.updateUser(roleId, firstname, lastname, username, password);
+    @PutMapping(path = "/user/{id}", consumes = "application/json")
+    public void updateUser(@PathVariable int id, @RequestBody(required = true) User payload) {
+        apiUserService.updateUser(payload.getFirstname(), payload.getLastname(), payload.getUsername(),
+                payload.getPassword(), payload.getRoleId());
     }
 
     @DeleteMapping("/user/{id}")
-    public void deleteUser(@PathVariable int id){
+    public void deleteUser(@PathVariable int id) {
         apiUserService.deleteUser(id);
     }
 
