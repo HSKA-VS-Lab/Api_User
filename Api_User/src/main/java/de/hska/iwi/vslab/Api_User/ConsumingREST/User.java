@@ -21,6 +21,15 @@ public class User {
         this.roleId = roleId;
     }
 
+    public User(int userId, String username, String firstname, String lastname, String password, int roleId) {
+        this.id = userId;
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.password = password;
+        this.roleId = roleId;
+    }
+
     @Override
     public String toString() {
         return String.format("User[id=%d, username='%s', firstname='%s', lastname='%s', password='%s', roleId=%d]", id, username, firstname, lastname, password, roleId);

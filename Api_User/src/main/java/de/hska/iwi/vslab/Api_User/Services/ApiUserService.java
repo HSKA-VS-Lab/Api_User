@@ -31,8 +31,8 @@ public class ApiUserService {
         compUserRole.register(firstname, lastname, username, password);
     }
 
-    public void updateUser(int roleId, String username, String firstname, String lastname, String password){
-        User user = new User(username, firstname, lastname, password, roleId);
+    public void updateUser(int userId, String username, String firstname, String lastname, String password, int roleId){
+        User user = new User(userId, username, firstname, lastname, password, roleId);
         coreUser.updateUser(user);
     }
 

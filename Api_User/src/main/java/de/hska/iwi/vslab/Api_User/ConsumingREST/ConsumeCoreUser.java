@@ -49,8 +49,8 @@ public class ConsumeCoreUser {
     public void updateUser(User user) {
         try {
             UrlBuilder urlBuilder = new UrlBuilder();
-            log.info("URL:" + urlBuilder.getBaseUrl_core_user());
-            restTemplate.put(urlBuilder.getSlashURL_core(), user);
+            log.info("URL:" + urlBuilder.getUrlWithId_core(user.getId()));
+            restTemplate.put(urlBuilder.getUrlWithId_core(user.getId()), user);
         } catch (Exception e) {
             System.out.println(e);
             throw e;

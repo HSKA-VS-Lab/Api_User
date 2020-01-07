@@ -40,7 +40,7 @@ public class UrlBuilder {
     }
 
     String getUrlWithId_core(int id){
-        return baseUrl_core_user+"/"+id;
+        return getUserUrl()+"/"+id;
     }
     String getUrlWithId_comp(int id){
         return baseUrl_comp_user_role+"/"+id;

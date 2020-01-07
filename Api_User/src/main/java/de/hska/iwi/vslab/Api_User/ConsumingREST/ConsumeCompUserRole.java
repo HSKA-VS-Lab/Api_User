@@ -2,6 +2,7 @@ package de.hska.iwi.vslab.Api_User.ConsumingREST;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
 
 public class ConsumeCompUserRole {
@@ -14,8 +15,9 @@ public class ConsumeCompUserRole {
     public void register(String firstname, String lastname, String username, String password) {
         try {
             UrlBuilder urlBuilder = new UrlBuilder();
-            log.info("URL:" + urlBuilder.getBaseUrl_comp_user_role());
-            restTemplate.postForLocation(urlBuilder.getRegisterUrl(), firstname, lastname, username, password);
+            log.info("URL:" + urlBuilder.getRegisterUrl());
+            HttpEntity<User> request = new HttpEntity<>(new User(firstname, lastname, username, password, 2));
+            restTemplate.postForLocation(urlBuilder.getRegisterUrl(), request);
         } catch (Exception e) {
             System.out.println(e);
             throw e;
