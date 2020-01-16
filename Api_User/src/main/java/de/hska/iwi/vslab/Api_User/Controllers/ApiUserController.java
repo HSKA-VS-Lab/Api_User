@@ -37,7 +37,7 @@ public class ApiUserController {
     }
 
     @GetMapping("/user/{input}")
-    @HystrixCommand(fallbackMethod = "fallbackGetUser")
+    //@HystrixCommand(fallbackMethod = "fallbackGetUser")
     public User getUser(@PathVariable String input) {
         return apiUserService.getUser(input);
     }
@@ -48,21 +48,21 @@ public class ApiUserController {
     }
 
     @PostMapping(path="/user", consumes="application/json")
-    @HystrixCommand(fallbackMethod = "defaultFallback")
+    //@HystrixCommand(fallbackMethod = "defaultFallback")
     public void addUser(@RequestBody(required=true) User payload) {
         log.info("register(firstname, lastname, username, password) was called. Payload:", payload.toString());
         apiUserService.register(payload.getFirstname(), payload.getLastname(), payload.getUsername(), payload.getPassword());
     }
 
     @PutMapping(path="/user/{id}", consumes="application/json")
-    @HystrixCommand(fallbackMethod = "defaultFallbackWithId")
+    //@HystrixCommand(fallbackMethod = "defaultFallbackWithId")
     public void updateUser(@PathVariable int id,  @RequestBody(required=true) User payload) {
         log.info("updateUser(roleId, firstname, lastname, username, password) was called. Payload:", payload);
         apiUserService.updateUser(id, payload.getFirstname(), payload.getLastname(), payload.getUsername(), payload.getPassword(), payload.getRoleId());
     }
 
     @DeleteMapping("/user/{id}")
-    @HystrixCommand(fallbackMethod = "defaultFallbackWithId")
+    //@HystrixCommand(fallbackMethod = "defaultFallbackWithId")
     public void deleteUser(@PathVariable int id){
         apiUserService.deleteUser(id);
     }
