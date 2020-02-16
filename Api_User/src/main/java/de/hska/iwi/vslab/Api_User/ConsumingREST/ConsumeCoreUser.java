@@ -11,10 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.resource.BaseOAuth2ProtectedResourceDetails;
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 import org.springframework.security.oauth2.client.test.OAuth2ContextConfiguration.ClientCredentials;
+import org.springframework.security.oauth2.client.token.AccessTokenRequest;
+import org.springframework.security.oauth2.client.token.DefaultAccessTokenRequest;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
 import org.springframework.security.oauth2.client.token.grant.password.ResourceOwnerPasswordResourceDetails;
 import org.springframework.security.oauth2.common.AuthenticationScheme;
@@ -59,23 +62,30 @@ public class ConsumeCoreUser {
  
     @Bean // has to be done at runtime because the authorization server would not be up otherwise
     public OAuth2RestTemplate  foo() {
-        OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(oAuth2ResourceDetails());
-        
+        //OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(oAuth2ResourceDetails());
+        AccessTokenRequest atr = new DefaultAccessTokenRequest();
+        return new OAuth2RestTemplate(oAuth2ResourceDetails(), new DefaultOAuth2ClientContext(atr));
         /* To validate if required configurations are in place during startup */
         //oAuth2RestTemplate.getAccessToken();
-        return oAuth2RestTemplate;
+        //return oAuth2RestTemplate;
     }
 
     public User[] getAllUsers() {
         try {
-            UrlBuilder urlBuilder = new UrlBuilder();
-            log.info("URL:" + urlBuilder.getBaseUrl_core_user());
-            OAuth2AccessToken token = restTemplate2.getAccessToken();
-            //restTemplate2.
-            return restTemplate2.getForObject(urlBuilder.getUserUrl(), User[].class);
+            //UrlBuilder urlBuilder = new UrlBuilder();
+            //log.info("URL:" + urlBuilder.getBaseUrl_core_user());
+            //OAuth2AccessToken token = restTemplate2.getAccessToken();
+            OAuth2RestTemplate restTemplate3 = foo();
+            return restTemplate3.getForObject("http://coreuser:8083/user", User[].class);
+            //return restTemplate2.getForObject(urlBuilder.getUserUrl(), User[].class);
         } catch (Exception e) {
+            if (restTemplate2 == null) {
+                log.error("ERROR IN CONSUMECOREUSER RESTTEMPLATE IS NULL", e);
+                throw e;
+            } else {
             log.error("ERROR IN CONSUMECOREUSER ", e);
             throw e;
+            }
         }
     }
 
