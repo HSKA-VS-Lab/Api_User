@@ -111,7 +111,9 @@ public class ConsumeCoreUser {
             UrlBuilder urlBuilder = new UrlBuilder();
             log.info("URL:" + urlBuilder.getBaseUrl_core_user());
             User user = new User(firstname, lastname, username, password, roleId);
-            restTemplate.postForLocation(urlBuilder.getSlashURL_core(), user);
+            OAuth2RestTemplate restTemplate3 = foo();
+            restTemplate3.postForLocation(urlBuilder.getSlashURL_core(), user);
+            //restTemplate.postForLocation(urlBuilder.getSlashURL_core(), user);
         } catch (Exception e) {
             System.out.println(e);
             throw e;
@@ -122,7 +124,9 @@ public class ConsumeCoreUser {
         try {
             UrlBuilder urlBuilder = new UrlBuilder();
             log.info("URL:" + urlBuilder.getUrlWithId_core(user.getId()));
-            restTemplate.put(urlBuilder.getUrlWithId_core(user.getId()), user);
+            OAuth2RestTemplate restTemplate3 = foo();
+            restTemplate3.put(urlBuilder.getUrlWithId_core(user.getId()), user);
+            //restTemplate.put(urlBuilder.getUrlWithId_core(user.getId()), user);
         } catch (Exception e) {
             System.out.println(e);
             throw e;
@@ -133,7 +137,9 @@ public class ConsumeCoreUser {
         try {
             UrlBuilder urlBuilder = new UrlBuilder();
             log.info("URL:" + urlBuilder.getBaseUrl_core_user());
-            restTemplate.delete(urlBuilder.getSlashURL_core());
+            OAuth2RestTemplate restTemplate3 = foo();
+            restTemplate3.delete(urlBuilder.getSlashURL_core());
+            //restTemplate.delete(urlBuilder.getSlashURL_core());
         } catch (Exception e) {
             System.out.println(e);
             throw e;
@@ -144,7 +150,9 @@ public class ConsumeCoreUser {
         try {
             UrlBuilder urlBuilder = new UrlBuilder();
             log.info("URL:" + urlBuilder.getUrlWithId_core(id));
-            restTemplate.delete(urlBuilder.getUrlWithId_core(id));
+            OAuth2RestTemplate restTemplate3 = foo();
+            restTemplate3.delete(urlBuilder.getUrlWithId_core(id));
+            //restTemplate.delete(urlBuilder.getUrlWithId_core(id));
         } catch (Exception e) {
             System.out.println(e);
             throw e;
