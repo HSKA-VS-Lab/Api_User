@@ -23,8 +23,14 @@ public class UrlBuilder {
         LoadBalancerClient loadBalancer = BeanUtil.getBean(LoadBalancerClient.class);
         ServiceInstance si_core_user = loadBalancer.choose("core_user");
         ServiceInstance si_comp_user_role = loadBalancer.choose("comp_user_role");
-        this.baseUrl_core_user =  si_core_user.getUri().toString();
-        this.baseUrl_comp_user_role = si_comp_user_role.getUri().toString();
+        try {
+            this.baseUrl_core_user = si_core_user.getUri().toString();
+            this.baseUrl_comp_user_role = si_comp_user_role.getUri().toString();
+        }catch(NullPointerException np_ex){
+            this.baseUrl_core_user = "http://coreuser:8083";// Schreibweise siehe Docker-Compose
+            this.baseUrl_comp_user_role = "http://compuserrole:8085"; // Schreibweise siehe Docker-Compose
+        }
+
     }
 
     String getInputUrl(String input){

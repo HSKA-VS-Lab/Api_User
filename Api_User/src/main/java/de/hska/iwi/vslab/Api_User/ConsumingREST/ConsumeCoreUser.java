@@ -25,6 +25,7 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
+import de.hska.iwi.vslab.Api_User.ConsumingREST.UrlBuilder;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
@@ -72,11 +73,13 @@ public class ConsumeCoreUser {
 
     public User[] getAllUsers() {
         try {
-            //UrlBuilder urlBuilder = new UrlBuilder();
-            //log.info("URL:" + urlBuilder.getBaseUrl_core_user());
+            UrlBuilder urlBuilder = new UrlBuilder();
+            log.info("URL:" + urlBuilder.getUserUrl());
             //OAuth2AccessToken token = restTemplate2.getAccessToken();
+            String url = urlBuilder.getUserUrl();
             OAuth2RestTemplate restTemplate3 = foo();
-            return restTemplate3.getForObject("http://coreuser:8083/user", User[].class);
+            return restTemplate3.getForObject(url, User[].class);
+            //return restTemplate3.getForObject("http://coreuser:8083/user", User[].class);
             //return restTemplate2.getForObject(urlBuilder.getUserUrl(), User[].class);
         } catch (Exception e) {
             if (restTemplate2 == null) {
@@ -93,7 +96,10 @@ public class ConsumeCoreUser {
         try {
             UrlBuilder urlBuilder = new UrlBuilder();
             log.info("URL:" + urlBuilder.getInputUrl(input));
-            return restTemplate.getForObject(urlBuilder.getInputUrl(input), User.class);
+            //return restTemplate.getForObject(urlBuilder.getInputUrl(input), User.class);
+            String url = urlBuilder.getInputUrl(input);
+            OAuth2RestTemplate restTemplate3 = foo();
+            return restTemplate3.getForObject(url, User.class);
         } catch (Exception e) {
             System.out.println(e);
             throw e;
